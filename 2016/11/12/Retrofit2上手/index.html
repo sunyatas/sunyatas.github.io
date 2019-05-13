@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="好久没有静下心来认真写博客了，这几天好好了解了一下retrofit2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Retrofit2上手">
+<meta property="og:url" content="http://yoursite.com/2016/11/12/Retrofit2上手/index.html">
+<meta property="og:site_name" content="夜比昼长">
+<meta property="og:description" content="好久没有静下心来认真写博客了，这几天好好了解了一下retrofit2">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.sunchen.cc/doubanxiaowangzi.png">
+<meta property="og:image" content="http://image.sunchen.cc/doubantest.jpg">
+<meta property="og:image" content="http://image.sunchen.cc/Retrofit_detail.png">
+<meta property="og:image" content="http://image.sunchen.cc/image/7/18/becc53a279ae43fc7cd5c6bbeb8c2.jpg">
+<meta property="og:image" content="http://image.sunchen.cc/gold.jpg">
+<meta property="og:updated_time" content="2017-08-17T12:04:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Retrofit2上手">
+<meta name="twitter:description" content="好久没有静下心来认真写博客了，这几天好好了解了一下retrofit2">
+<meta name="twitter:image" content="http://image.sunchen.cc/doubanxiaowangzi.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/11/12/Retrofit2上手/">
+
+
+
+
+
+  <title>Retrofit2上手 | 夜比昼长</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e7153ae6cf79033b9e80ccf7fc36adb1";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">夜比昼长</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/12/Retrofit2上手/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sun Chen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="http://image.sunchen.cc/my20160714015604.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="夜比昼长">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Retrofit2上手</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-12T02:27:00+08:00">
+                2016-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/Retrofit/" itemprop="url" rel="index">
+                    <span itemprop="name">Retrofit</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>好久没有静下心来认真写博客了，这几天好好了解了一下retrofit2<br><a id="more"></a></p>
+<h2 id="什么是Retrofit2？"><a href="#什么是Retrofit2？" class="headerlink" title="什么是Retrofit2？"></a>什么是Retrofit2？</h2><p>Retrofit2当然是<a href="https://github.com/square/retrofit" target="_blank" rel="noopener">Retrofit</a>的升级版啦(。・・)ノ，好，那么<a href="https://github.com/square/retrofit" target="_blank" rel="noopener">Retrofit</a>又是什么呢？</p>
+<p><a href="https://github.com/square/retrofit" target="_blank" rel="noopener">Retrofit</a>是<a href="https://squareup.com/" target="_blank" rel="noopener">square公司</a>发布的一个用于<strong>Android</strong>和<strong>Java</strong>的类型安全的HTTP client，使用注解来描述HTTP请求, 进行URL参数替换， 默认集成query参数支持, 除此而外, 它还提供Multipart请求和文件上传的功能。</p>
+<p>目前Retrofit2的底层是依赖OkHttp实现的，也就是说Retrofit本质上就是对OkHttp的更进一步封装。</p>
+<p>我很崇拜的<a href="https://github.com/JakeWharton" target="_blank" rel="noopener">JakeWharton</a>也参与了其中大部分的代码编写工作。</p>
+<p>所谓JakeWharton种树，后人乘凉，再加上<a href="https://github.com/square/retrofit" target="_blank" rel="noopener">Retrofit</a>+<a href="https://github.com/square/okhttp" target="_blank" rel="noopener">Okhttp3</a>+<a href="https://github.com/ReactiveX/RxJava" target="_blank" rel="noopener">Rxjava</a>算是目前很火的网络框架了，实在是很有必要进行学习。</p>
+<p>ps:不知道是不是受美国大选影响，从8号开始就明显感觉GFW的威力增强不少，<a href="https://www.google.com" target="_blank" rel="noopener">Google</a>基本已无法访问，甚至连<a href="https://github.com" target="_blank" rel="noopener">Github</a>都已经不能打开完整页面了,真是感觉（╯‵□′）╯︵┴─┴。。。</p>
+<p>###简单使用</p>
+<p>首先在build.gradle文件中添加依赖<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dependencies &#123;  </span><br><span class="line">    compile &apos;com.squareup.retrofit2:retrofit:2.1.0&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>由于Retrofit2是构建在OkHttp之上的，因此默认情况下使用OkHttp作为网络层（当然也支持自定义，不过这里不管，就用OkHttp3），所以我们不需要再另外将OkHttp添加到依赖中。</p>
+<p>这里我用来测试的是<a href="https://developers.douban.com/wiki/?title=api_v2" target="_blank" rel="noopener">豆瓣api</a>中获取图书信息的的api，具体的请求地址为<a href="https://api.douban.com/v2/book/1003078" target="_blank" rel="noopener">https://api.douban.com/v2/book/1003078</a></p>
+<p><img src="http://image.sunchen.cc/doubanxiaowangzi.png" alt="小王子"></p>
+<p>可以看到我们的地址分为两部分”<a href="https://api.douban.com/v2/book&quot;" target="_blank" rel="noopener">https://api.douban.com/v2/book&quot;</a> 以及最后的编号”1003078”。其中前半部分可以看做是<strong>baseURl</strong>，后半部分是可以根据我们需要请求的不同数据进行动态变化的。</p>
+<p>由于<strong>reterfit</strong>需要将http api转化成java interface，所以首先我要先定义一个接口文件，命名为Api。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Api</span> </span>&#123;</span><br><span class="line">    <span class="comment">//https://api.douban.com/v2/book/1003078</span></span><br><span class="line">    <span class="meta">@GET</span>(<span class="string">"v2/book/&#123;id&#125;"</span>)</span><br><span class="line">    <span class="function">Call&lt;ResponseBody&gt; <span class="title">getBookDetail</span><span class="params">(@Path(<span class="string">"id"</span>)</span> String idStr)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来在Activity<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@BindView</span>(R.id.tv_show)</span><br><span class="line">    TextView tvShow;</span><br><span class="line">    <span class="meta">@BindView</span>(R.id.btn_to_reserve)</span><br><span class="line">    Button btnToReserve;</span><br><span class="line">    <span class="meta">@BindView</span>(R.id.activity_main)</span><br><span class="line">    RelativeLayout activityMain;</span><br><span class="line">    <span class="keyword">private</span> Api api;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String API_BASE_URL = <span class="string">"https://api.douban.com"</span>;</span><br><span class="line"> </span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        ButterKnife.bind(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@OnClick</span>(R.id.btn_to_reserve, R.id.btn_nanfeng)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (view.getId()) &#123;</span><br><span class="line">            <span class="keyword">case</span> R.id.btn_to_reserve:</span><br><span class="line">                Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()</span><br><span class="line">                .baseUrl(API_BASE_URL).build();</span><br><span class="line">                api = retrofit.create(Api.class);</span><br><span class="line"></span><br><span class="line">        Call&lt;ResponseBody&gt; bookDetail = api.getBookDetail(<span class="string">"1003078"</span>);</span><br><span class="line">        bookDetail.enqueue(<span class="keyword">new</span> Callback&lt;ResponseBody&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Call&lt;ResponseBody&gt; call, retrofit2.Response&lt;ResponseBody&gt; response)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    String string = response.body().string();</span><br><span class="line">                    Toast.makeText(MainActivity.<span class="keyword">this</span>, string, Toast.LENGTH_SHORT).show();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Call&lt;ResponseBody&gt; call, Throwable t)</span> </span>&#123;</span><br><span class="line">                   Toast.makeText(MainActivity.<span class="keyword">this</span>, <span class="string">"获取数据失败"</span>,               </span><br><span class="line">                   Toast.LENGTH_SHORT).show();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后别忘了在manifests文件中添加网络权限哦！</p>
+<p>在程序成功跑起来之后点击按钮，弹出Toast显示出数据内容，yes！最基本的get请求就已经成功了。</p>
+<p><img src="http://image.sunchen.cc/doubantest.jpg" alt>  </p>
+<p>但是~~~　　看看上面啊(￣∩￣)↗↗↗↗ ，我们只是获取到了纯粹的json格式数据，如果不对它进行转换的话，在实际应用中就并没有什么吊用啦，辣么在Retrofit2中应该怎么办呢？</p>
+<p>###转换器</p>
+<p>下面截图自<a href="https://square.github.io/retrofit/" target="_blank" rel="noopener">Retrofit官方介绍</a><br><img src="http://image.sunchen.cc/Retrofit_detail.png" alt></p>
+<p>可见在默认情况下，Retrofit只允许将HTTP主体反序列化成OkHttp的ResponseBody类型，并且它只能接受@Body的RequestBody类型。 </p>
+<p>不过我们可以添加<strong>转换器</strong>以支持其他类型。并且为我们提供了六个同级模块的序列化库。</p>
+<p>我个人和大部分人比较熟悉的可能就是<a href="https://github.com/google/gson" target="_blank" rel="noopener">Gson</a>和<a href="http://wiki.fasterxml.com/JacksonHome" target="_blank" rel="noopener">Jackson</a>了，毕竟这两个的使用频率应该算是最高的了吧，不过如果是使用阿里的<a href="https://github.com/alibaba/fastjson/wiki" target="_blank" rel="noopener">fastjson</a>的话，可能要多走几步路自己单独创建转换器（建立一个继承Converter.Factory的类，并在构建适配器时传递实例）。</p>
+<p>我选择的是Gson转换器，首先我需要在build.gradle 文件来导入 Retrofit 2的 GSON 转换器，添加依赖：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">compile &apos;com.squareup.retrofit2:converter-gson:2.1.0&apos;</span><br></pre></td></tr></table></figure></p>
+<p>接下来在Retrofit的builder前调用<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">.addConverterFactory(GsonConverterFactory.create())</span><br></pre></td></tr></table></figure></p>
+<p> 来集成 <strong>Gson</strong>作为默认的 <strong>Json</strong>转换器.</p>
+<p>接下来创建实体类BookDetails:<br><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookDetails</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> RatingBean rating;</span><br><span class="line">    <span class="keyword">private</span> String subtitle;</span><br><span class="line">    <span class="keyword">private</span> String pubdate;</span><br><span class="line">    <span class="keyword">private</span> String origin_title;</span><br><span class="line">    <span class="keyword">private</span> String image;</span><br><span class="line">    <span class="keyword">private</span> String binding;</span><br><span class="line">    <span class="keyword">private</span> String catalog;</span><br><span class="line">    <span class="keyword">private</span> String pages;</span><br><span class="line">    <span class="keyword">private</span> ImagesBean images;</span><br><span class="line">    <span class="keyword">private</span> String alt;</span><br><span class="line">    <span class="keyword">private</span> String id;</span><br><span class="line">    <span class="keyword">private</span> String publisher;</span><br><span class="line">    <span class="keyword">private</span> String isbn10;</span><br><span class="line">    <span class="keyword">private</span> String isbn13;</span><br><span class="line">    <span class="keyword">private</span> String title;</span><br><span class="line">    <span class="keyword">private</span> String url;</span><br><span class="line">    <span class="keyword">private</span> String alt_title;</span><br><span class="line">    <span class="keyword">private</span> String author_intro;</span><br><span class="line">    <span class="keyword">private</span> String summary;</span><br><span class="line">    <span class="keyword">private</span> String price;</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; author;</span><br><span class="line">    <span class="keyword">private</span> List&lt;TagsBean&gt; tags;</span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; translator;</span><br><span class="line"></span><br><span class="line">.....</span><br><span class="line"></span><br><span class="line"><span class="comment">//珍惜生命请自生成get、set方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代码太长，get set方法就不贴了，不要漏了get和set方法。</p>
+<p>接下来将Api文件中之前的get请求中的请求体<strong>ResponseBody</strong>改为<strong>BookDetails</strong>：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">@GET(&quot;v2/book/&#123;id&#125;&quot;)</span><br><span class="line">Call&lt;BookDetails&gt; getBookDetail(@Path(&quot;id&quot;) String idStr);</span><br></pre></td></tr></table></figure></p>
+<p>同理，Activity文件中的<strong>ResponseBody</strong>一样改为改为<strong>BookDetails</strong>：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Call&lt;BookDetails&gt; bookDetailsCall = api.getBookDetail(&quot;1003078&quot;);</span><br><span class="line">bookDetailsCall.enqueue(new Callback&lt;BookDetails&gt;() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void onResponse(Call&lt;BookDetails&gt; call, Response&lt;BookDetails&gt; response) &#123;</span><br><span class="line">        //获取作者信息</span><br><span class="line">        String author_intro = response.body().getAuthor_intro();</span><br><span class="line">        Toast.makeText(MainActivity.this, author_intro, Toast.LENGTH_SHORT).show();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onFailure(Call&lt;BookDetails&gt; call, Throwable t) &#123;</span><br><span class="line">        Toast.makeText(MainActivity.this, &quot;获取数据失败&quot;, Toast.LENGTH_SHORT).show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这里我选了弹出作者信息来进行测试，因为他的字最多，我喜欢看故事≡ω≡ 。好，程序运行后同样点击按钮进行测试，嗯成功的弹出了作者信息，不过由于是Toast，所以我想看完的话就要一直一直点了～～</p>
+<p><img src="http://image.sunchen.cc/image/7/18/becc53a279ae43fc7cd5c6bbeb8c2.jpg" alt></p>
+<p>嗯，大功告成这下可以想取什么数据取什么了，剩下的明天继续写，洗澡睡觉去了，明天还要去还尾田电影票<strong>↓↓↓↓↓</strong><br><img src="http://image.sunchen.cc/gold.jpg" alt></p>
+<p>&lt;!– ####POST请求</p>
+<p>1.用@POST标注请求方法，用@Body标注参数（默认将对象转换成json字符串）</p>
+<p>2.用@FormUrlEncoded提交form表单</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/04/动态权限管理/" rel="next" title="动态权限管理">
+                <i class="fa fa-chevron-left"></i> 动态权限管理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/22/Retrofit2之@Query注解用法/" rel="prev" title="Retrofit2之@Query注解用法">
+                Retrofit2之@Query注解用法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="http://image.sunchen.cc/my20160714015604.png" alt="Sun Chen">
+          <p class="site-author-name" itemprop="name">Sun Chen</p>
+           
+              <p class="site-description motion-element" itemprop="description">世有三千相，唯知白守黑</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sunyatas" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/sunchen1996" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Retrofit2？"><span class="nav-number">1.</span> <span class="nav-text">什么是Retrofit2？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sun Chen</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT
+  </a>
+</div>
+
+
+<div class="copyright">
+  Hosted by <a style="font-weight: bold" href="https://pages.coding.me">Coding Pages </a>
+
+</div>
+
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
