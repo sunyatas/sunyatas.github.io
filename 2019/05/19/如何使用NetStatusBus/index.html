@@ -102,7 +102,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://api.bintray.com/packages/sunchen/maven/netstatusbus/images/download.svg">
 <meta property="og:image" content="https://www.pgyer.com/app/qrcode/USYp">
-<meta property="og:updated_time" content="2019-05-19T02:27:13.967Z">
+<meta property="og:image" content="http://image.sunchen.cc/mac/207A2E7C-5CFA-4C52-8BBD-F48ACD958CDF.png">
+<meta property="og:updated_time" content="2019-05-19T02:36:07.678Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何使用NetStatusBus">
 <meta name="twitter:description" content="NetStatusBus项目地址  NetStateBus 是一个可以无缝进行网络状态监听的框架，使用简单，具有强解耦，高性能等特性。 快速体验 如果二维码图片不可见，点我下载Demo体验">
@@ -396,9 +397,10 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 当正在使用移动网络时，或者没有网络时会回调此方法</span></span><br><span class="line"><span class="meta">@NetSubscribe</span>(netType = NetType.MOBILE)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">netChange</span><span class="params">(NetType netType)</span> </span>&#123;</span><br><span class="line">    Log.d(Constrants.LOG_TAG, netType.name());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="NetType-NONE"><a href="#NetType-NONE" class="headerlink" title="NetType.NONE"></a><code>NetType.NONE</code></h4><p> 只有当网络丢失时，该类型订阅者才会被回调。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@NetSubscribe</span>(netType = NetType.NONE)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">netChange</span><span class="params">(NetType netType)</span> </span>&#123;</span><br><span class="line">    Log.d(Constrants.LOG_TAG, netType.name());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意：由于Android 在7.0以后出于性能及安全的考虑对广播做了大量的限制，而监网络连接的广播在7.0以后的系统上也只有动态注册才能生效，本库出于性能考虑决定使用 <code>NetworkCallback</code> 类来代替广播实现网络状态变化监听。因此需要您将<code>minSdkVersion</code> 升级为21及以上。</p>
+<p>注意：由于Android 在7.0以后出于性能及安全的考虑对广播做了大量的限制，而监网络连接的广播在7.0以后的系统上也只有动态注册才能生效，本库出于性能考虑决定使用 <code>NetworkCallback</code> 类来代替广播实现网络状态变化监听。因此需要将你的<code>minSdkVersion</code> 升级为21及以上。</p>
+<p>目前Android 5.0及以上机型的市场占有率是在85%以上，若是确实需要进行适配5.0以下机型，请联系我，我会酌情考虑是否加入支持。</p>
+<p><img src="http://image.sunchen.cc/mac/207A2E7C-5CFA-4C52-8BBD-F48ACD958CDF.png" alt></p>
 <h2 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h2><p>QQ Email: <a href="mailto:sunchen.cc@qq.com" target="_blank" rel="noopener">sunchen.cc@qq.com</a></p>
-<p><a href="sunchen.cc@qq.com">sunchen.cc@qq.com</a></p>
 
       
     </div>
