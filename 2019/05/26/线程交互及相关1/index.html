@@ -100,10 +100,13 @@
 <meta property="og:site_name" content="夜比昼长">
 <meta property="og:description" content="如何结束一个线程？1、使用 Thread.stop() ，可以直接结束线程，如下代码，当 thread 线程执行一百万次打印，主线程睡 5 秒之后对 thread 进行 stop。通过打印日志可以发现线程确实立即被中断了，但是在代码中能发现 thread.stop() 是被废弃的 Api，这是因为 thread.stop() 导致的结果是不可预期的，它会立即中断线程，中间的过程无法控制，不能控制中">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-26T22:18:56.388Z">
+<meta property="og:image" content="http://image.sunchen.cc/mac/6477F5A6-1D0E-469D-8647-6DED6ABD4B51.png">
+<meta property="og:image" content="http://image.sunchen.cc/mac/0EEA6DDC-A12B-4208-BA0D-B70F9CDCD2D0.png">
+<meta property="og:updated_time" content="2019-05-29T16:02:25.821Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="线程间交互及相关1">
 <meta name="twitter:description" content="如何结束一个线程？1、使用 Thread.stop() ，可以直接结束线程，如下代码，当 thread 线程执行一百万次打印，主线程睡 5 秒之后对 thread 进行 stop。通过打印日志可以发现线程确实立即被中断了，但是在代码中能发现 thread.stop() 是被废弃的 Api，这是因为 thread.stop() 导致的结果是不可预期的，它会立即中断线程，中间的过程无法控制，不能控制中">
+<meta name="twitter:image" content="http://image.sunchen.cc/mac/6477F5A6-1D0E-469D-8647-6DED6ABD4B51.png">
 
 
 
@@ -388,6 +391,10 @@
 <p>所以这里可以对thread2进行wait操作，暂时将优先级让出来。然后在<code>thread2</code> 对 <code>shardString</code>进行了初始化值，可以调用 <code>notifyAll()</code> 吧所有的等待队列进行刷新。</p>
 <p>刷新之后，thread2会从<code>wait</code> 后面继续开始执行代码。</p>
 <p>注意：<code>wait</code> 是一个 <code>object</code> 方法，并不是一个线程方法，因为 <code>wait</code> 和是要伴随着唤醒的，都是<code>monitor</code> 调用的，因此是一个 <code>object</code> 方法。</p>
+<h2 id="Thread-join"><a href="#Thread-join" class="headerlink" title="Thread.join"></a>Thread.join</h2><p><img src="http://image.sunchen.cc/mac/6477F5A6-1D0E-469D-8647-6DED6ABD4B51.png" alt></p>
+<p>如图在thread2中调用<code>thread1.join()</code>线程，表示希望thread1线程排在自己前面，自己等thread1线程完全结束后才会继续执行后面的代码 </p>
+<p><img src="http://image.sunchen.cc/mac/0EEA6DDC-A12B-4208-BA0D-B70F9CDCD2D0.png" alt></p>
+<p>暂时让出自己的时间线，把执行暂时让出分配给同优先级的其他线程。这个方法一般不用</p>
 
       
     </div>
@@ -580,7 +587,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何结束一个线程？"><span class="nav-number">1.</span> <span class="nav-text">如何结束一个线程？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Thread-wait"><span class="nav-number">2.</span> <span class="nav-text">Thread.wait()</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何结束一个线程？"><span class="nav-number">1.</span> <span class="nav-text">如何结束一个线程？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Thread-wait"><span class="nav-number">2.</span> <span class="nav-text">Thread.wait()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Thread-join"><span class="nav-number">3.</span> <span class="nav-text">Thread.join</span></a></li></ol></div>
             
 
           </div>
